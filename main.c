@@ -1,4 +1,4 @@
-/* The fact I find the GNU coding standard readable shows that I'm probably an idiot and you shouldn't trust me */
+/* There's a 60% chance of this fucking up because of malformed input and some fuck ups with floating point that im lazy to do*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,10 +17,10 @@
 #define MIN_IN   0
 /* Strings */
 
-#define GOODLUCK   "\n\n G O O D   L U C K ! ! !\n\n"
-#define TOPBAR     "\nSEC  FEET  SPEED  FUEL\n"
-#define TOPFORMAT  "\n\n %d   %.1f   %.1f   %.1f"
-#define THROTTLE   "\nThrottle : "
+#define GOODLUCK   "\n\n G O O D   L U C K ! ! !\n"
+#define TOPBAR     "SEC  FEET  SPEED  FUEL\n"
+#define TOPFORMAT  " %d   %.1f   %.1f   %.1f : "
+/* #define THROTTLE   "\nThrottle : " */
 #define ENDGAME    "\n**** CONTACT ****\nTOUCHDOWN : %d\n LANDING V = %f ft/s\nFuel remaining : %f\n"
 #define FAIL       "\n**** CRASHED ****\n"
 #define WIN        "\n**** LANDED *****\n"
@@ -53,7 +53,6 @@ initGame (void)
 
 	while (feet > 0)
 	{
-		puts (THROTTLE);
 		input = inputVal ();	/* Get input from functions */
 
 		/* Edit vals */
@@ -82,7 +81,7 @@ initGame (void)
 
 	printf (ENDGAME, seconds, speed, fuel);
 
-	if (speed < 10 || speed < 0 ||)
+	if (speed < 10 || speed < 0)
 	{
 		puts (WIN);
 	}
@@ -107,12 +106,14 @@ main (void)
 	{
 		if (initGame () == 0)
 		{
+			fgets (buf, INPUTBUF, stdin);
+
 			printf (MISSION);
-			if (strcmp (fgets (buf, INPUTBUF, stdin), "yes") == 0)
+			if (strcmp (buf, "yes") == 0)
 			{
 				initGame ();
 			}
-			else if (strcmp (fgets (buf, INPUTBUF, stdin), "no") == 0)
+			else if (strcmp (buf, "no") == 0)
 			{
 				break;
 			}
